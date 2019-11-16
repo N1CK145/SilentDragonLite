@@ -105,6 +105,12 @@ bool Settings::isSaplingActive() {
 double Settings::getZECPrice() { 
     return ZECPrice; 
 }
+double Settings::getEURPrice() { 
+    return EURPrice; 
+}
+double Settings::getBTCPrice() { 
+    return BTCPrice; 
+}
 
 bool Settings::getCheckForUpdates() {
     return QSettings().value("options/allowcheckupdates", true).toBool();

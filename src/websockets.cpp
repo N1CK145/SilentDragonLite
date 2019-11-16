@@ -761,8 +761,11 @@ void AppDataServer::processGetInfo(QJsonObject jobj, MainWindow* mainWindow, std
         {"maxzspendable", maxZSpendable.toDecimalDouble()},
         {"tokenName", Settings::getTokenName()},
         {"zecprice", Settings::getInstance()->getZECPrice()},
+        {"eurprice", Settings::getInstance()->getEURPrice()},
+        {"btcprice", Settings::getInstance()->getBTCPrice()},
         {"serverversion", QString(APP_VERSION)}
     }).toJson();
+    
     pClient->sendTextMessage(encryptOutgoing(r));
 }
 

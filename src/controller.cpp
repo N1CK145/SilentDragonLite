@@ -659,14 +659,28 @@ void Controller::refreshZECPrice() {
             const json& item  = parsed.get<json::object_t>();
             const json& hush  = item["hush"].get<json::object_t>();
 
-                  if (hush["usd"] >= 0) {
+            if (hush["usd"] >= 0) {
                 qDebug() << "Found hush key in price json";
                 // TODO: support BTC/EUR prices as well
                 //QString price = QString::fromStdString(hush["usd"].get<json::string_t>());
                 qDebug() << "HUSH = $" << QString::number((double)hush["usd"]);
                 Settings::getInstance()->setZECPrice( hush["usd"] );
-                  return;
             }
+            if (hush["eur"] >= 0)
+            {
+                // TODO: support BTC/EUR prices as well
+                //QString price = QString::fromStdString(hush["usd"].get<json::string_t>());
+                qDebug() << "HUSH = €" << QString::number((double)hush["eur"]);
+                Settings::getInstance()->setEURPrice(hush["eur"]);
+            }
+            if (hush["btc"] >= 0)
+            {
+                // TODO: support BTC/EUR prices as well
+                //QString price = QString::fromStdString(hush["usd"].get<json::string_t>());
+                qDebug() << "HUSH = BTC" << QString::number((double)hush["btc"]);
+                Settings::getInstance()->setBTCPrice( hush["btc"]);
+            }
+            return;
          } catch (const std::exception& e) {
             // If anything at all goes wrong, just set the price to 0 and move on.
             qDebug() << QString("Caught something nasty: ") << e.what();
@@ -674,6 +688,8 @@ void Controller::refreshZECPrice() {
 
         // If nothing, then set the price to 0;
         Settings::getInstance()->setZECPrice(0);
+        Settings::getInstance()->setEURPrice(0);
+        Settings::getInstance()->setBTCPrice(0);
     });
 
 }
