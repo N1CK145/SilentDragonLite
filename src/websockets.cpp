@@ -770,7 +770,6 @@ void AppDataServer::processGetInfo(QJsonObject jobj, MainWindow* mainWindow, std
     }).toJson();
     
     pClient->sendTextMessage(encryptOutgoing(r));
-    qDebug() << r["prices"];
 }
 
 void AppDataServer::processGetTransactions(MainWindow* mainWindow, std::shared_ptr<ClientWebSocket> pClient) {
