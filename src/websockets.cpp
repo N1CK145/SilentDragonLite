@@ -750,11 +750,11 @@ void AppDataServer::processGetInfo(QJsonObject jobj, MainWindow* mainWindow, std
     }
 
     setConnectedName(connectedName);
-    auto prices = QJsonObject{
+    /*auto prices = QJsonObject{
         {"BTC", Settings::getInstance()->getBTCPrice()},
         {"EUR", Settings::getInstance()->getEURPrice()},
         {"USD", Settings::getInstance()->getZECPrice()}
-    };
+    };*/
 
     auto r = QJsonDocument(QJsonObject {
         {"version", 1.0},
@@ -765,7 +765,7 @@ void AppDataServer::processGetInfo(QJsonObject jobj, MainWindow* mainWindow, std
         {"maxspendable", maxSpendable.toDecimalDouble()},
         {"maxzspendable", maxZSpendable.toDecimalDouble()},
         {"tokenName", Settings::getTokenName()},
-        {"prices", prices},
+        // {"prices", prices}, Now prices locally get in SDA
         {"serverversion", QString(APP_VERSION)}
     }).toJson();
     pClient->sendTextMessage(encryptOutgoing(r));
