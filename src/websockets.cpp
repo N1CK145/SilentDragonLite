@@ -750,6 +750,11 @@ void AppDataServer::processGetInfo(QJsonObject jobj, MainWindow* mainWindow, std
     }
 
     setConnectedName(connectedName);
+    auto prices = QJsonObject{
+        {"BTC", Settings::getInstance()->getBTCPrice()},
+        {"EUR", Settings::getInstance()->getEURPrice()},
+        {"USD", Settings::getInstance()->getZECPrice()}
+    };
 
     auto r = QJsonDocument(QJsonObject {
         {"version", 1.0},
@@ -760,13 +765,12 @@ void AppDataServer::processGetInfo(QJsonObject jobj, MainWindow* mainWindow, std
         {"maxspendable", maxSpendable.toDecimalDouble()},
         {"maxzspendable", maxZSpendable.toDecimalDouble()},
         {"tokenName", Settings::getTokenName()},
-        {"zecprice", Settings::getInstance()->getZECPrice()},
-        {"eurprice", Settings::getInstance()->getEURPrice()},
-        {"btcprice", Settings::getInstance()->getBTCPrice()},
+        {"prices", prices},
         {"serverversion", QString(APP_VERSION)}
     }).toJson();
     
     pClient->sendTextMessage(encryptOutgoing(r));
+    qDebug() << r["prices"];
 }
 
 void AppDataServer::processGetTransactions(MainWindow* mainWindow, std::shared_ptr<ClientWebSocket> pClient) {
