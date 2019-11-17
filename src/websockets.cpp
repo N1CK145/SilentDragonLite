@@ -768,7 +768,6 @@ void AppDataServer::processGetInfo(QJsonObject jobj, MainWindow* mainWindow, std
         {"prices", prices},
         {"serverversion", QString(APP_VERSION)}
     }).toJson();
-    
     pClient->sendTextMessage(encryptOutgoing(r));
 }
 
